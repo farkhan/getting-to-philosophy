@@ -18,7 +18,7 @@ import static spark.Spark.port;
  *
  * @author Farhan Khan
  */
-public class GetToPhilosophyService {
+public class Api {
     
     public static void main( String[] args) {
     
