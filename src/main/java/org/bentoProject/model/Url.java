@@ -10,19 +10,19 @@ package org.bentoProject.model;
  * @author Farhan Khan
  */
 public class Url {
-    private int id;
+    private int urlId;
     private String data;
 
     public Url(String data) {
         this.data = data;
     }
 
-    public int getId() {
-        return id;
+    public int getUrlId() {
+        return urlId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUrlId(int urlId) {
+        this.urlId = urlId;
     }
 
     public String getData() {
@@ -40,13 +40,13 @@ public class Url {
 
         Url url = (Url) o;
 
-        if (id != url.id) return false;
+        if (urlId != url.urlId) return false;
         return data.equals(url.data);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = urlId;
         result = 31 * result + data.hashCode();
         return result;
     }

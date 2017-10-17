@@ -10,16 +10,16 @@ package org.bentoProject.model;
  * @author Farhan Khan
  */
 public class Path {
-    private int id;
+    private int pathId;
     private int urlId;
     private String data;
 
-    public int getId() {
-        return id;
+    public int getPathId() {
+        return pathId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setPathId(int pathId) {
+        this.pathId = pathId;
     }
 
     public int getUrlId() {
@@ -50,14 +50,14 @@ public class Path {
 
         Path path = (Path) o;
 
-        if (id != path.id) return false;
+        if (pathId != path.pathId) return false;
         if (urlId != path.urlId) return false;
         return data.equals(path.data);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = pathId;
         result = 31 * result + urlId;
         result = 31 * result + (data != null ? data.hashCode() : 0);
         return result;
