@@ -28,8 +28,12 @@ import static spark.debug.DebugScreen.enableDebugScreen;
  * @author Farhan Khan
  */
 public class Api {
+    private static String baseUrl = "https://en.wikipedia.org";
     
     public static void main( String[] args) {
+        Sql2o sql2o = new Sql2o("jdbc:sqlite:bento.db", null, null);
+        UrlDao urlDao = new UrlDao(sql2o);
+        Gson gson = new Gson();
     
     }
 }
