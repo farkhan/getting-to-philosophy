@@ -8,9 +8,10 @@
  * Created: Oct 17, 2017
  */
 
-CREATE TABLE IF NOT EXISTS url (
-   url_id int PRIMARY KEY auto_increment,
-   data VARCHAR
+CREATE TABLE `url` (
+	`url_id`	INTEGER PRIMARY KEY AUTOINCREMENT,
+	`data`	VARCHAR,
+	`title`	VARCHAR
 );
 
 CREATE TABLE `path` (
@@ -18,5 +19,6 @@ CREATE TABLE `path` (
     `url_id`	INTEGER,
     `data`	VARCHAR,
     `hop`	INTEGER,
+    `title`	VARCHAR,
     FOREIGN KEY(`url_id`) REFERENCES `url`(`url_id`)
 );

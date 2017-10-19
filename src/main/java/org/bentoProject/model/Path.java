@@ -14,11 +14,13 @@ public class Path {
     private int urlId;
     private String data;
     private int hop;
+    private String title;
 
-    public Path(int UrlId, String data, int hop) {
+    public Path(int UrlId, String data, int hop, String title) {
         this.urlId = UrlId;
         this.data = data;
         this.hop = hop;
+        this.title = title;
     }
 
     public int getPathId() {
@@ -51,6 +53,14 @@ public class Path {
 
     public void setHop(int hop) {
         this.hop = hop;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @Override

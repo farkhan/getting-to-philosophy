@@ -5,13 +5,17 @@
  */
 package org.bentoProject.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  *
  * @author Farhan Khan
  */
 public class Url {
     private int urlId;
+    @SerializedName("url")
     private String data;
+    private String title;
 
     public Url(String data) {
         this.data = data;
@@ -31,6 +35,14 @@ public class Url {
 
     public void setData(String data) {
         this.data = data;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @Override
