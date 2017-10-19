@@ -7,10 +7,10 @@ task wrapper(type: Wrapper) {
 
 archivesBaseName = "first"
 version = '1.0'
-mainClassName = "org.bentoapp.Api"
+mainClassName = "org.farkhan.Api"
 
 sourceCompatibility = 1.8
-group = "org.bentoapp"
+group = "org.farkhan"
 
 repositories {
   mavenCentral()
@@ -34,14 +34,14 @@ jar {
     manifest {
     attributes(
       'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
-      'Main-Class': 'org.bentoapp.Api'
+      'Main-Class': 'org.farkhan.Api'
     )
   }
 }
 
 task fatJar(type: Jar) {
     manifest {
-        attributes 'Main-Class': 'org.bentoapp.Api'
+        attributes 'Main-Class': 'org.farkhan.Api'
     }
     baseName = project.name + '-all'
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }

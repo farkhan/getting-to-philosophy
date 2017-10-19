@@ -10,5 +10,5 @@ Class-Path: spark-core-2.5.jar slf4j-simple-1.7.6.jar gson-2.8.0.jar s
  3.6.v20151106.jar jetty-io-9.3.6.v20151106.jar jetty-xml-9.3.6.v20151
  106.jar websocket-api-9.3.6.v20151106.jar jetty-util-9.3.6.v20151106.
  jar
-Main-Class: org.bentoapp.Api
+Main-Class: org.farkhan.Api
 
