@@ -13,6 +13,13 @@ public class Path {
     private int pathId;
     private int urlId;
     private String data;
+    private int hop;
+
+    public Path(int UrlId, String data, int hop) {
+        this.urlId = UrlId;
+        this.data = data;
+        this.hop = hop;
+    }
 
     public int getPathId() {
         return pathId;
@@ -38,12 +45,15 @@ public class Path {
         this.data = data;
     }
 
-    public Path(int UrlId, String data) {
-        this.urlId = UrlId;
-        this.data = data;
+    public int getHop() {
+        return hop;
     }
 
-     @Override
+    public void setHop(int hop) {
+        this.hop = hop;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
