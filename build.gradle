@@ -41,7 +41,7 @@ jar {
 
 task fatJar(type: Jar) {
     manifest {
-        attributes 'Main-Class': 'com.curso.online.gradle.Main'
+        attributes 'Main-Class': 'org.bentoapp.Api'
     }
     baseName = project.name + '-all'
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
