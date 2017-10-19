@@ -15,6 +15,7 @@ import org.jsoup.nodes.Document;
 import org.sql2o.converters.UUIDConverter;
 import static spark.Spark.*;
 import org.bentoProject.dao.UrlDao;
+import org.bentoProject.dao.PathDao;
 import org.bentoProject.model.Path;
 import org.bentoProject.model.Url;
 import org.bentoProject.dao.DaoException;
@@ -33,6 +34,7 @@ public class Api {
     public static void main( String[] args) {
         Sql2o sql2o = new Sql2o("jdbc:sqlite:bento.db", null, null);
         UrlDao urlDao = new UrlDao(sql2o);
+        PathDao pathDao = new PathDao(sql2o);
         Gson gson = new Gson();
     
     post("/url", "application/json", (req, res) -> {
@@ -44,11 +46,13 @@ public class Api {
 
     get("/url", "application/json", (req, res) -> urlDao.findAll(), gson::toJson);
 
-    get("/philosophy", "application/json", (req, res) -> {
+    post("/philosophy", "application/json", (req, res) -> {
         Integer count = 0;
-        String url = baseUrl + "/wiki/New_York_City";
+        Url url = gson.fromJson(req.body(), Url.class);
+        urlDao.add(url);
+        String wikiUrl = baseUrl + "/wiki/New_York_City";
 
-        Document doc = Jsoup.connect(url).header("Accept-Encoding", "gzip, deflate")
+        Document doc = Jsoup.connect(wikiUrl).header("Accept-Encoding", "gzip, deflate")
             .userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0")
             .maxBodySize(0)
             .get();
@@ -57,13 +61,19 @@ public class Api {
             Elements mwContentText = doc.select("#mw-content-text");
             Elements filteredContent = filteredContent(mwContentText);
             Elements firstParagraph = filteredContent.select(".mw-parser-output > p");
-                Elements links = firstParagraph.select("a");
-                Elements filteredElements = filteredLinks(links, url);
-                Element firstElement = filteredElements.first();
-                if (firstElement != null) {
-                    doc = getNextLink(firstElement);
-                    firstHeading = doc.select("h1#firstHeading").text();
-                }
+            Elements links = firstParagraph.select("a");
+            Elements filteredElements = filteredLinks(links, wikiUrl);
+            Element firstElement = filteredElements.first();
+            if (firstElement != null) {
+                Integer urlId = url.getUrlId();
+                String data = firstElement.attr("href");
+
+                doc = getNextLink(firstElement);
+                firstHeading = doc.select("h1#firstHeading").text();
+                count++;
+                Path path = new Path(urlId, data, count);
+                pathDao.add(path);
+            }
         }
         return url;
     }, gson::toJson);
