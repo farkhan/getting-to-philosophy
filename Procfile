@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT $JAVA_OPTS -jar build/libs/first-1.0.jar
+web: java -Dserver.port=$PORT $JAVA_OPTS -jar build/libs/bentoapp-all-1.0.jar

@@ -38,3 +38,12 @@ jar {
     )
   }
 }
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'com.curso.online.gradle.Main'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
