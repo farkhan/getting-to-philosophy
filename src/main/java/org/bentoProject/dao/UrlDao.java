@@ -24,14 +24,15 @@ public class UrlDao implements UrlDaoImpl {
     }
     
     @Override
-    public void add(Url url) throws DaoException {
-        String sql = "INSERT INTO url(data) VALUES (:data)";
+    public int add(Url url) throws DaoException {
+        String sql = "INSERT INTO url (data, title) VALUES (:data, :title)";
         try (Connection con = sql2o.open()) {
-            int id = (int) con.createQuery(sql)
-                    .bind(url)
+            Long id = (Long) con.createQuery(sql, true)
+                    .addParameter("data", url.getData())
+                    .addParameter("title", url.getTitle())
                     .executeUpdate()
                     .getKey();
-            url.setUrlId(id);
+            return id.intValue();
         } catch (Sql2oException ex) {
             throw new DaoException(ex, "Problem adding url");
         }
@@ -45,7 +46,7 @@ public class UrlDao implements UrlDaoImpl {
                     .executeAndFetch(Url.class);
         }
     }
-    
+
     @Override
     public Url findById(int urlId) {
         try (Connection con = sql2o.open()) {

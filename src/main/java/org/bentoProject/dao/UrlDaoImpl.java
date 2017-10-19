@@ -13,7 +13,7 @@ import java.util.List;
  * @author Farhan Khan
  */
 public interface UrlDaoImpl {
-    void add(Url url) throws DaoException ;
+    int add(Url url) throws DaoException ;
     List<Url> findAll();
     Url findById(int id);
 }

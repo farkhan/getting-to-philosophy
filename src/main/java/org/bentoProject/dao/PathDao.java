@@ -25,13 +25,14 @@ public class PathDao implements PathDaoImpl {
     
     @Override
     public void add(Path path) throws DaoException {
-        String sql = "INSERT INTO path(url_id, data, hop, title) VALUES (:urlId, :data, :hop, :title)";
+        String sql = "INSERT INTO path (url_id, data, hop, title) VALUES (:urlId, :data, :hop, :title)";
         try (Connection con = sql2o.open()) {
-            int id = (int) con.createQuery(sql)
-                    .bind(path)
-                    .executeUpdate()
-                    .getKey();
-            path.setPathId(id);
+            con.createQuery(sql)
+                    .addParameter("urlId", path.getUrlId())
+                    .addParameter("data", path.getData())
+                    .addParameter("hop", path.getHop())
+                    .addParameter("title", path.getTitle())
+                    .executeUpdate();
         } catch (Sql2oException ex) {
             throw new DaoException(ex, "Problem adding path");
         }
@@ -58,7 +59,7 @@ public class PathDao implements PathDaoImpl {
     @Override
     public List<Path> findByUrlId(int urlId) {
         try (Connection con = sql2o.open()) {
-            return con.createQuery("SELECT * FROM path WHERE url_id = :urlId")
+            return con.createQuery("SELECT title, data, hop FROM path WHERE url_id = :urlId")
                     .addParameter("urlId", urlId)
                     .throwOnMappingFailure(false)
                     .executeAndFetch(Path.class);
