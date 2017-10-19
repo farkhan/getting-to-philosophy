@@ -19,10 +19,19 @@ import java.util.List;
 public class PathDao implements PathDaoImpl {
     private Sql2o sql2o;
     
+    /**
+     *
+     * @param sql2o
+     */
     public PathDao(Sql2o sql2o) {
         this.sql2o = sql2o;
     }
     
+    /**
+     *
+     * @param path
+     * @throws DaoException
+     */
     @Override
     public void add(Path path) throws DaoException {
         String sql = "INSERT INTO path (url_id, data, hop, title) VALUES (:urlId, :data, :hop, :title)";
@@ -38,6 +47,10 @@ public class PathDao implements PathDaoImpl {
         }
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public List<Path> findAll() {
         try (Connection con = sql2o.open()) {
@@ -47,6 +60,11 @@ public class PathDao implements PathDaoImpl {
         }
     }
     
+    /**
+     *
+     * @param pathId
+     * @return
+     */
     @Override
     public Path findById(int pathId) {
         try (Connection con = sql2o.open()) {
@@ -56,6 +74,11 @@ public class PathDao implements PathDaoImpl {
         }
     }
 
+    /**
+     *
+     * @param urlId
+     * @return
+     */
     @Override
     public List<Path> findByUrlId(int urlId) {
         try (Connection con = sql2o.open()) {

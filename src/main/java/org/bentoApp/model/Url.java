@@ -17,30 +17,58 @@ public class Url {
     private String data;
     private String title;
 
+    /**
+     *
+     * @param data
+     */
     public Url(String data) {
         this.data = data;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getUrlId() {
         return urlId;
     }
 
+    /**
+     *
+     * @param urlId
+     */
     public void setUrlId(int urlId) {
         this.urlId = urlId;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getData() {
         return data;
     }
 
+    /**
+     *
+     * @param data
+     */
     public void setData(String data) {
         this.data = data;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     *
+     * @param title
+     */
     public void setTitle(String title) {
         this.title = title;
     }

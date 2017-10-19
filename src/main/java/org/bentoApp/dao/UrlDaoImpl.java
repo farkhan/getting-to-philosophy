@@ -13,7 +13,25 @@ import java.util.List;
  * @author Farhan Khan
  */
 public interface UrlDaoImpl {
+
+    /**
+     *
+     * @param url
+     * @return
+     * @throws DaoException
+     */
     int add(Url url) throws DaoException ;
+
+    /**
+     *
+     * @return
+     */
     List<Url> findAll();
+
+    /**
+     *
+     * @param id
+     * @return
+     */
     Url findById(int id);
 }

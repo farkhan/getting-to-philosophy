@@ -32,7 +32,15 @@ import static spark.debug.DebugScreen.enableDebugScreen;
 public class Api {
     private static String baseUrl = "https://en.wikipedia.org";
     private static int port = System.getenv("PORT") == null ? 4567 : Integer.parseInt(System.getenv("PORT"));
+    private static String JDBC_DATABASE_URL = System.getenv("JDBC_DATABASE_URL") == null
+        ? "jdbc:mysql://localhost:3306/bento?user=root&password=password"
+        : System.getenv("JDBC_DATABASE_URL");
+            
     
+    /**
+     *
+     * @param args
+     */
     public static void main( String[] args) {
         Sql2o sql2o = new Sql2o("jdbc:mysql://localhost:3306/bento?user=root&password=password", null, null);
         UrlDao urlDao = new UrlDao(sql2o);
@@ -83,6 +91,12 @@ public class Api {
     enableDebugScreen();
     }
 
+    /**
+     *
+     * @param element
+     * @return
+     * @throws IOException
+     */
     public static Document getNextLink (Element element) throws IOException  {
         String url = baseUrl + element.attr("href");
         System.out.println("url: " + url);
@@ -93,6 +107,12 @@ public class Api {
         return doc;
     }
 
+    /**
+     *
+     * @param links
+     * @param currentLink
+     * @return
+     */
     public static Elements filteredLinks (Elements links, String currentLink) {
         for (Iterator<Element> it = links.iterator(); it.hasNext(); ) {
            Element element = it.next();
@@ -109,6 +129,11 @@ public class Api {
         return links;
     }
 
+    /**
+     *
+     * @param elements
+     * @return
+     */
     public static Elements filteredContent (Elements elements) {
         for (Iterator<Element> it = elements.iterator(); it.hasNext(); ) {
             Element element = it.next();
@@ -120,10 +145,20 @@ public class Api {
         return elements;
     }
 
+    /**
+     *
+     * @param s
+     * @return
+     */
     public static Boolean startsOrEndsWithParenthesis(String s) {
         return s.startsWith("(") && s.endsWith(")");
     }
 
+    /**
+     *
+     * @param link
+     * @return
+     */
     public static Boolean isWikiLink(String link) {
         return link.contains("/wiki/");
     }

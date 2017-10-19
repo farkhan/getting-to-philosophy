@@ -19,10 +19,20 @@ import java.util.List;
 public class UrlDao implements UrlDaoImpl {
     private Sql2o sql2o;
     
+    /**
+     *
+     * @param sql2o
+     */
     public UrlDao(Sql2o sql2o) {
         this.sql2o = sql2o;
     }
     
+    /**
+     *
+     * @param url
+     * @return
+     * @throws DaoException
+     */
     @Override
     public int add(Url url) throws DaoException {
         String sql = "INSERT INTO url (data, title) VALUES (:data, :title)";
@@ -38,6 +48,10 @@ public class UrlDao implements UrlDaoImpl {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public List<Url> findAll() {
         try (Connection con = sql2o.open()) {
@@ -47,6 +61,11 @@ public class UrlDao implements UrlDaoImpl {
         }
     }
 
+    /**
+     *
+     * @param urlId
+     * @return
+     */
     @Override
     public Url findById(int urlId) {
         try (Connection con = sql2o.open()) {

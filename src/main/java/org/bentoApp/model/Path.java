@@ -16,6 +16,13 @@ public class Path {
     private int hop;
     private String title;
 
+    /**
+     *
+     * @param UrlId
+     * @param data
+     * @param hop
+     * @param title
+     */
     public Path(int UrlId, String data, int hop, String title) {
         this.urlId = UrlId;
         this.data = data;
@@ -23,42 +30,82 @@ public class Path {
         this.title = title;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getPathId() {
         return pathId;
     }
 
+    /**
+     *
+     * @param pathId
+     */
     public void setPathId(int pathId) {
         this.pathId = pathId;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getUrlId() {
         return urlId;
     }
 
+    /**
+     *
+     * @param UrlId
+     */
     public void setUrlId(int UrlId) {
         this.urlId = UrlId;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getData() {
         return data;
     }
 
+    /**
+     *
+     * @param data
+     */
     public void setData(String data) {
         this.data = data;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getHop() {
         return hop;
     }
 
+    /**
+     *
+     * @param hop
+     */
     public void setHop(int hop) {
         this.hop = hop;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     *
+     * @param title
+     */
     public void setTitle(String title) {
         this.title = title;
     }
