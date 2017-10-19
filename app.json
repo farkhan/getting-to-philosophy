@@ -1,0 +1,6 @@
+{
+  "name": "BentoApp",
+  "description": "A Wikipedia 'Getting to Philosophy' app for bentoForBusiness",
+  "image": "heroku/gradle",
+  "addons": [ "heroku-mysql" ]
+}
