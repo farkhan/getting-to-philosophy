@@ -13,9 +13,10 @@ CREATE TABLE IF NOT EXISTS url (
    data VARCHAR
 );
 
-CREATE TABLE IF NOT EXISTS path (
-   path_id INTEGER PRIMARY KEY auto_increment,
-   url_id INTEGER,
-   data VARCHAR,
-   FOREIGN KEY(url_id) REFERENCES url(url_id)
+CREATE TABLE `path` (
+    `path_id`	INTEGER PRIMARY KEY AUTOINCREMENT,
+    `url_id`	INTEGER,
+    `data`	VARCHAR,
+    `hop`	INTEGER,
+    FOREIGN KEY(`url_id`) REFERENCES `url`(`url_id`)
 );
