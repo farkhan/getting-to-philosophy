@@ -10,6 +10,7 @@ import org.sql2o.Sql2o;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.List;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.sql2o.converters.UUIDConverter;
@@ -75,7 +76,8 @@ public class Api {
                 pathDao.add(path);
             }
         }
-        return url;
+        List<Path> urlPaths = pathDao.findByUrlId(url.getUrlId());
+        return urlPaths;
     }, gson::toJson);
     enableDebugScreen();
     }
