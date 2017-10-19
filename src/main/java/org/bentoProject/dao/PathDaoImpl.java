@@ -16,4 +16,5 @@ public interface PathDaoImpl {
     void add(Path path) throws DaoException ;
     List<Path> findAll();
     Path findById(int path_id);
+    List<Path> findByUrlId(int url_id);
 }

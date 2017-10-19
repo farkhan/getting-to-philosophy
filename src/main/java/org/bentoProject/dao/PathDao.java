@@ -54,4 +54,14 @@ public class PathDao implements PathDaoImpl {
                     .executeAndFetchFirst(Path.class);
         }
     }
+
+    @Override
+    public List<Path> findByUrlId(int urlId) {
+        try (Connection con = sql2o.open()) {
+            return con.createQuery("SELECT * FROM path WHERE url_id = :urlId")
+                    .addParameter("urlId", urlId)
+                    .throwOnMappingFailure(false)
+                    .executeAndFetch(Path.class);
+        }
+    }
 }
