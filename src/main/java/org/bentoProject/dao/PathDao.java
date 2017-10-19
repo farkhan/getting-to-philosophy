@@ -25,7 +25,7 @@ public class PathDao implements PathDaoImpl {
     
     @Override
     public void add(Path path) throws DaoException {
-        String sql = "INSERT INTO path(data) VALUES (:data)";
+        String sql = "INSERT INTO path(url_id, data, hop, title) VALUES (:urlId, :data, :hop, :title)";
         try (Connection con = sql2o.open()) {
             int id = (int) con.createQuery(sql)
                     .bind(path)
