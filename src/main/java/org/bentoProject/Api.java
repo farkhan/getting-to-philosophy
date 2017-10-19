@@ -33,7 +33,7 @@ public class Api {
     private static String baseUrl = "https://en.wikipedia.org";
     
     public static void main( String[] args) {
-        Sql2o sql2o = new Sql2o("jdbc:sqlite:bento.db", null, null);
+        Sql2o sql2o = new Sql2o("jdbc:mysql://localhost:3306/bento?user=root&password=password", null, null);
         UrlDao urlDao = new UrlDao(sql2o);
         PathDao pathDao = new PathDao(sql2o);
         Gson gson = new Gson();
@@ -49,15 +49,16 @@ public class Api {
 
     post("/philosophy", "application/json", (req, res) -> {
         Integer count = 0;
-        Url url = gson.fromJson(req.body(), Url.class);
-        urlDao.add(url);
-        String wikiUrl = baseUrl + "/wiki/New_York_City";
-
+        System.out.println(req.body());
+        String wikiUrl = baseUrl + "/wiki/India";
         Document doc = Jsoup.connect(wikiUrl).header("Accept-Encoding", "gzip, deflate")
             .userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0")
             .maxBodySize(0)
             .get();
         String firstHeading = doc.select("h1#firstHeading").text();
+        Url url = gson.fromJson(req.body(), Url.class);
+        url.setTitle(firstHeading);
+        int urlId = urlDao.add(url);
         while (!firstHeading.equals("Philosophy")) {
             Elements mwContentText = doc.select("#mw-content-text");
             Elements filteredContent = filteredContent(mwContentText);
@@ -66,17 +67,15 @@ public class Api {
             Elements filteredElements = filteredLinks(links, wikiUrl);
             Element firstElement = filteredElements.first();
             if (firstElement != null) {
-                Integer urlId = url.getUrlId();
                 String data = firstElement.attr("href");
-
                 doc = getNextLink(firstElement);
                 firstHeading = doc.select("h1#firstHeading").text();
                 count++;
-                Path path = new Path(urlId, data, count);
+                Path path = new Path(urlId, data, count, firstHeading);
                 pathDao.add(path);
             }
         }
-        List<Path> urlPaths = pathDao.findByUrlId(url.getUrlId());
+        List<Path> urlPaths = pathDao.findByUrlId(urlId);
         return urlPaths;
     }, gson::toJson);
     enableDebugScreen();
