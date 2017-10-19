@@ -1,4 +1,4 @@
-package org.bentoProject.dao;
+package org.bentoapp.dao;
 
 public class DaoException extends Exception {
 

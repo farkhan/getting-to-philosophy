@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.bentoProject.dao;
+package org.bentoapp.dao;
 
-import org.bentoProject.model.Path;
+import org.bentoapp.model.Path;
 
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;

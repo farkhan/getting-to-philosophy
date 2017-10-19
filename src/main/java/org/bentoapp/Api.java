@@ -1,4 +1,4 @@
-package org.bentoProject;
+package org.bentoapp;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -15,11 +15,11 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.sql2o.converters.UUIDConverter;
 import static spark.Spark.*;
-import org.bentoProject.dao.UrlDao;
-import org.bentoProject.dao.PathDao;
-import org.bentoProject.model.Path;
-import org.bentoProject.model.Url;
-import org.bentoProject.dao.DaoException;
+import org.bentoapp.dao.UrlDao;
+import org.bentoapp.dao.PathDao;
+import org.bentoapp.model.Path;
+import org.bentoapp.model.Url;
+import org.bentoapp.dao.DaoException;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
