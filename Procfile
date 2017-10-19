@@ -1,1 +1,1 @@
-web: build/install/bentoapp/bin/bentoapp
+web: java -Dserver.port=$PORT $JAVA_OPTS -jar build/libs/first-1.0.jar
