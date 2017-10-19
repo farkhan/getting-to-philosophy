@@ -1,2 +1,14 @@
 Manifest-Version: 1.0
+Class-Path: spark-core-2.5.jar slf4j-simple-1.7.6.jar gson-2.8.0.jar s
+ ql2o-1.5.4.jar sqlite-jdbc-3.8.11.2.jar spark-debug-tools-0.5.jar jso
+ up-1.10.3.jar mysql-connector-java-5.1.37.jar heroku-jdbc-0.1.1.jar s
+ lf4j-api-1.7.13.jar jetty-webapp-9.3.6.v20151106.jar websocket-server
+ -9.3.6.v20151106.jar jetty-servlet-9.3.6.v20151106.jar jetty-security
+ -9.3.6.v20151106.jar jetty-server-9.3.6.v20151106.jar websocket-servl
+ et-9.3.6.v20151106.jar javax.servlet-api-3.1.0.jar jetty-http-9.3.6.v
+ 20151106.jar websocket-client-9.3.6.v20151106.jar websocket-common-9.
+ 3.6.v20151106.jar jetty-io-9.3.6.v20151106.jar jetty-xml-9.3.6.v20151
+ 106.jar websocket-api-9.3.6.v20151106.jar jetty-util-9.3.6.v20151106.
+ jar
+Main-Class: org.bentoapp.Api
 
