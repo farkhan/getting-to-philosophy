@@ -12,7 +12,7 @@ import com.google.gson.annotations.SerializedName;
  * @author Farhan Khan
  */
 public class Url {
-    private int urlId;
+    private transient int urlId;
     @SerializedName("url")
     private String data;
     private String title;

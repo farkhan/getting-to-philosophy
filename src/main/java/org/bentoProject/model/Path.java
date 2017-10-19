@@ -10,8 +10,8 @@ package org.bentoProject.model;
  * @author Farhan Khan
  */
 public class Path {
-    private int pathId;
-    private int urlId;
+    private transient int pathId;
+    private transient int urlId;
     private String data;
     private int hop;
     private String title;
