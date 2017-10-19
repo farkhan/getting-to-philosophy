@@ -31,12 +31,14 @@ import static spark.debug.DebugScreen.enableDebugScreen;
  */
 public class Api {
     private static String baseUrl = "https://en.wikipedia.org";
+    private static int port = System.getenv("PORT") == null ? 4567 : Integer.parseInt(System.getenv("PORT"));
     
     public static void main( String[] args) {
         Sql2o sql2o = new Sql2o("jdbc:mysql://localhost:3306/bento?user=root&password=password", null, null);
         UrlDao urlDao = new UrlDao(sql2o);
         PathDao pathDao = new PathDao(sql2o);
         Gson gson = new Gson();
+        port(port);
     
     post("/url", "application/json", (req, res) -> {
         Url url = gson.fromJson(req.body(), Url.class);
