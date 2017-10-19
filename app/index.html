@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+  </head>
+    <body>
+      <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+      <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.32/jquery.form.js"></script>
+      <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.11.1/jquery.validate.min.js"></script>
+      <script src="js/form.js"></script>
+      
+      <form id="urlForm" name="urlForm" method="post">  
+        <fieldset>  
+          <label for="url" id="url">Url<span class="required">*</span></label>
+          <input type="text" name="url" id="url" size="30" value="" required/>
+          <input id="submit" type="submit" name="submit" value="Send" />  
+        </fieldset>  
+        </form>
+
+        <div id="success">
+        <span>
+            Your message was sent succssfully! I will be in touch as soon as I can.
+        </span>
+        </div>
+
+        <div id="error">
+        <span>
+          Something went wrong, try refreshing and submitting the form again.
+        </span>
+        </div>
+      
+    </body>
+</html>
