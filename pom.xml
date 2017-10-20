@@ -68,7 +68,7 @@
         </executions>
         <configuration>
             <includePluginDependencies>true</includePluginDependencies>
-          <mainClass>org.bentoapp</mainClass>
+          <mainClass>org.farkhan.Api</mainClass>
         </configuration>
       </plugin>
     </plugins>
