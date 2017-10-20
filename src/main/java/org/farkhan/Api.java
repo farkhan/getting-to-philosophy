@@ -72,14 +72,11 @@ public class Api {
         JsonElement element = gson.fromJson (req.body(), JsonElement.class);
         JsonObject jsonObj = element.getAsJsonObject();
         String wikiUrl = jsonObj.get("url").getAsString();
-        if (!isWikiLink(wikiUrl)){
+        if (!isValidWikiLink(wikiUrl)){
             res.status(400);
             return new ResponseError("Not a valid Wiki link!");
         };
-        Document doc = Jsoup.connect(wikiUrl).header("Accept-Encoding", "gzip, deflate")
-            .userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0")
-            .maxBodySize(0)
-            .get();
+        Document doc = fetchUrl(wikiUrl);
         String firstHeading = doc.select("h1#firstHeading").text();
         Url url = gson.fromJson(req.body(), Url.class);
         url.setTitle(firstHeading);
@@ -92,7 +89,8 @@ public class Api {
             Element firstElement = getFirstLinkElement(doc, wikiUrl);
             if (firstElement != null) {
                 String data = firstElement.attr("href");
-                doc = getNextLink(firstElement);
+                String urlToBeFetched = baseUrl + data;
+                doc = fetchUrl(urlToBeFetched);
                 firstHeading = doc.select("h1#firstHeading").text();
                 count++;
                 Path path = new Path(urlId, data, count, firstHeading);
@@ -102,9 +100,11 @@ public class Api {
         List<Path> urlPaths = pathService.findByUrlId(urlId);
         return urlPaths;
     }, gson::toJson);
+
     after((req, res) -> {
         res.type("application/json");
     });
+
     enableDebugScreen();
     }
     
@@ -117,13 +117,12 @@ public class Api {
         return filteredElements.first();
     }
     /**
-     * Fetches link and returns as Jsoup Document
-     * @param element
+     * Fetches url and returns as Jsoup Document
+     * @param String url
      * @return
      * @throws IOException
      */
-    public static Document getNextLink (Element element) throws IOException  {
-        String url = baseUrl + element.attr("href");
+    public static Document fetchUrl (String url) throws IOException  {
         System.out.println("url: " + url);
         Document doc = Jsoup.connect(url).header("Accept-Encoding", "gzip, deflate")
             .userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0")
@@ -133,8 +132,7 @@ public class Api {
     }
 
     /**
-     * Removes links if they are currentLink,
-     * not wiki links, contain HELP:IPA or audio/video in the URLs
+     * Filters links based on the url
      * @param links
      * @param currentLink
      * @return
@@ -146,10 +144,9 @@ public class Api {
            String href = element.attr("href");
            String linkText = element.text().trim();
            if (startsOrEndsWithParenthesis(linkText)
-                   || href == currentLink
-                   || !isWikiLink(href)
-                   || href.contains("Help:IPA")
-                   || href.endsWith(".ogg")) {
+                || href == currentLink
+                || !isValidWikiLink(href)
+            ) {
                it.remove();
            }
         }
@@ -185,8 +182,15 @@ public class Api {
      * @param link
      * @return
      */
-    public static Boolean isWikiLink(String link) {
-        return link.contains("/wiki/");
+    public static Boolean isValidWikiLink(String link) {
+        String lower = link.toLowerCase();
+        Boolean isValidLink = lower.contains("/wiki/") 
+            && !lower.contains("help:ipa")
+            && !lower.contains("#cite_note")
+            && !lower.endsWith(":citation_needed")
+            && !lower.endsWith(".ogg")
+            && !lower.endsWith(".webm");
+        return isValidLink;
     }
 
 }
