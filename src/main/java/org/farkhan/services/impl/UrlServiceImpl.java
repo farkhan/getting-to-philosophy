@@ -1,26 +1,38 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/* 
+ * Copyright (C) 2017 Farhan Khan
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.farkhan.dao;
+package org.farkhan.services.impl;
 
 import org.farkhan.model.Url;
 
 import java.util.List;
+import org.farkhan.services.ServiceException;
 /**
  *
  * @author Farhan Khan
  */
-public interface UrlDaoImpl {
+public interface UrlServiceImpl {
 
     /**
      *
      * @param url
      * @return
-     * @throws DaoException
+     * @throws ServiceException
      */
-    int add(Url url) throws DaoException ;
+    int add(Url url) throws ServiceException ;
 
     /**
      *
