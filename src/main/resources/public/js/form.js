@@ -1,37 +1,38 @@
 $(function() {
-    $('#urlForm').validate({
-        rules: {
-            url: {
-                required: true,
-                url: true
-            }
-        },
-        messages: {
-            url: {
-                required: "Url is required",
-                minlength: "your name must consist of at least 2 characters",
-                url: "Please enter a valid URL"
-            }
-        },
-        submitHandler: function(form) {
-            $(form).ajaxSubmit({
-                type:"POST",
-                data: $(form).serialize(),
-                url:"process.php",
-                success: function() {
-                    $('#urlForm :input').attr('disabled', 'disabled');
-                    $('#urlForm').fadeTo( "slow", 0.15, function() {
-                        $(this).find(':input').attr('disabled', 'disabled');
-                        $(this).find('label').css('cursor','default');
-                        $('#success').fadeIn();
-                    });
+    $(document).ready(function(){
+        // click on button submit
+        $('span.glyphicon-refresh').hide();
+        $("#submit").on('click', function(){
+            $('.glyphicon').removeClass('glyphicon-search');
+            $('.glyphicon').addClass('spinner');
+            var urlInput = $("#url").val();
+            $.ajax({
+                url: 'url',
+                type : "POST",
+                data: JSON.stringify({url: urlInput}),
+                contentType: "application/json; charset=utf-8",
+                success : function(result) {
+                    $("#pathList").html(
+                        $("#pathTemplate").render(result, true)
+                    );
+                    console.log(result);
                 },
-                error: function() {
-                    $('#contact').fadeTo( "slow", 0.15, function() {
-                        $('#error').fadeIn();
-                    });
+                error: function(xhr, resp, text) {
+                    console.log(xhr, resp, text);
+                },
+                always: function() {
+                    console.log('always');
+                    $('.glyphicon').removeClass('spinner');
+                    $('.glyphicon').addClass('glyphicon-search');
                 }
             });
-        }
+        });
+        $('#url').keypress(function(e) {
+            if(e.which === 13) {
+                e.preventDefault();
+                $(this).blur();
+                $('#submit').focus().click();
+            }
+        });
     });
 });
