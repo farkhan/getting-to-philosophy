@@ -3,6 +3,11 @@ package org.farkhan;
 import org.sql2o.Sql2o;
 import com.google.gson.Gson;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.List;
 import org.jsoup.Jsoup;
@@ -12,6 +17,7 @@ import static spark.Spark.*;
 import org.farkhan.dao.UrlDao;
 import org.farkhan.dao.PathDao;
 import org.farkhan.model.Path;
+
 import org.farkhan.model.Url;
 import org.farkhan.dao.DaoException;
 import org.jsoup.nodes.Element;
@@ -43,6 +49,8 @@ public class Api {
         PathDao pathDao = new PathDao(sql2o);
         Gson gson = new Gson();
         port(port);
+
+    get("/", (req, res) -> renderContent("app/index.html"));
 
     get("/url", "application/json", (req, res) -> urlDao.findAll(), gson::toJson);
 
@@ -78,6 +86,16 @@ public class Api {
         return urlPaths;
     }, gson::toJson);
     enableDebugScreen();
+    }
+
+    private static String renderContent(String htmlFile) {
+        try {
+            URL url = Api.class.getResource(htmlFile);
+            java.nio.file.Path path = Paths.get(url.toURI());
+            return new String(Files.readAllBytes(path), Charset.defaultCharset());
+        } catch (IOException | URISyntaxException e) {
+        }
+        return null;
     }
 
     /**
